@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sound Wave Art</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Sound Wave Art</h1>
+            <p>Speak your art into existence</p>
+        </header>
+
+        <main>
+            <div class="controls-card">
+                <div class="status-indicator">
+                    <div id="status-dot"></div>
+                    <span id="status-text">Ready to record</span>
+                </div>
+
+                <div class="controls-wrapper">
+                    <!-- Section 1: Recording & Row Navigation -->
+                    <div class="control-section">
+                        <div class="btn-group">
+                            <button id="prev-row-btn" class="btn secondary" title="Previous Row">
+                                <span class="icon">⬅️</span>
+                            </button>
+                            <div class="row-indicator">
+                                <span class="label">Row</span>
+                                <span id="current-row-num">1</span>
+                            </div>
+                            <button id="next-row-btn" class="btn secondary" title="Next Row">
+                                <span class="icon">➡️</span>
+                            </button>
+                        </div>
+                        <button id="record-btn" class="btn primary main-record">
+                            <span class="icon">🎙️</span>
+                            <span class="label">Start Recording</span>
+                        </button>
+                    </div>
+
+                    <div class="divider vertical"></div>
+
+                    <!-- Section 2: Grid & Wave Settings -->
+                    <div class="control-section">
+                        <div class="slider-group">
+                            <div class="control-item">
+                                <span class="label">Width</span>
+                                <input type="range" id="wave-width-slider" min="10" max="100" value="100" step="1">
+                            </div>
+                            <div class="control-item">
+                                <span class="label">Height</span>
+                                <input type="range" id="wave-height-slider" min="10" max="300" value="100" step="1">
+                            </div>
+                        </div>
+                        <div class="theme-control">
+                            <span class="label">Style</span>
+                            <div class="toggle-container">
+                                <span class="icon small">🎨</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="theme-toggle-checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                                <span class="icon small">🏁</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="divider vertical"></div>
+
+                    <!-- Section 3: Reference Image -->
+                    <div class="control-section">
+                        <div class="ref-actions">
+                            <input type="file" id="ref-image-input" accept="image/*" hidden>
+                            <button id="upload-ref-btn" class="btn secondary">
+                                <span class="icon">🖼️</span>
+                                <span class="label">Image</span>
+                            </button>
+                            <button id="toggle-ref-btn" class="btn secondary" disabled title="Toggle visibility">
+                                <span class="icon">👁️</span>
+                            </button>
+                        </div>
+                        <div id="opacity-control" class="opacity-container hidden">
+                            <span class="icon small">🌓</span>
+                            <input type="range" id="ref-opacity-slider" min="0" max="100" value="60" step="1">
+                        </div>
+                    </div>
+
+                    <div class="divider vertical"></div>
+
+                    <!-- Section 4: Project Actions -->
+                    <div class="control-section actions-section">
+                        <button id="clear-btn" class="btn secondary" title="Clear All">
+                            <span class="icon">🗑️</span>
+                        </button>
+                        <button id="save-btn" class="btn secondary highlight" title="Save as Image">
+                            <span class="icon">💾</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="canvas-container">
+                <canvas id="art-canvas"></canvas>
+            </div>
+        </main>
+
+        <div id="countdown-overlay" class="countdown-overlay hidden">
+            <div class="countdown-text"></div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>
