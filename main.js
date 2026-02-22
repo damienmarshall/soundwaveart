@@ -384,12 +384,12 @@ class SoundWaveArt {
         }
         const rawAmplitude = sum / this.dataArray.length;
 
-        this.lastAmplitude = (this.smoothingFactor * rawAmplitude) + ((1 - this.smoothingFactor) * this.lastAmplitude);
-
         const sampleIndex = this.rowProgress[this.currentRowIndex];
         const offsetIndex = Math.max(0, sampleIndex - this.responseOffsetSamples);
 
-        this.recordedRows[this.currentRowIndex][offsetIndex] = this.lastAmplitude;
+        // Use raw amplitude for recording to ensure maximum responsiveness.
+        // Post-processing smoothing will be applied only when the recording stops.
+        this.recordedRows[this.currentRowIndex][offsetIndex] = rawAmplitude;
         this.rowProgress[this.currentRowIndex]++;
 
         this.drawArt();
@@ -451,8 +451,15 @@ class SoundWaveArt {
             const rowData = this.recordedRows[i];
             const progress = this.rowProgress[i];
 
-            // Background 
-            this.ctx.fillStyle = this.showRefImage ? bgColor + 'CC' : bgColor;
+            // Background - more transparent when reference image is more opaque
+            let bgAlpha = 'FF';
+            if (this.showRefImage) {
+                // Dim the background more as refOpacity increases
+                const alphaVal = Math.floor(Math.max(0.1, 0.8 - this.refOpacity * 0.5) * 255);
+                bgAlpha = alphaVal.toString(16).padStart(2, '0');
+            }
+
+            this.ctx.fillStyle = this.showRefImage ? bgColor + bgAlpha : bgColor;
             this.ctx.fillRect(offsetX, y, activeWidth, rowHeight);
 
             // Highlight active row
